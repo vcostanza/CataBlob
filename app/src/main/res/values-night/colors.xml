@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_title">@color/white</color>
+    <color name="gray">#222</color>
+    <color name="search_bar_background">#222</color>
+</resources>

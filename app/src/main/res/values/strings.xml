@@ -1,0 +1,74 @@
+<resources>
+
+    <string name="app_name">CataBlob</string>
+    <string name="app_desc">Personal product organizer and catalog</string>
+
+    <!-- Actions -->
+    <string name="add_collection">Add Collection</string>
+    <string name="add_product">Add Product</string>
+    <string name="remove_products">Remove Products</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="find_image">Find Image</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="confirm_removal">Confirm Removal</string>
+    <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="edit">Edit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Common labels -->
+    <string name="name_label">Name:</string>
+    <string name="description_label">Desc:</string>
+    <string name="notes_label">Notes:</string>
+    <string name="brand_label">Brand:</string>
+    <string name="category_label">Category:</string>
+    <string name="upc_label">UPC:</string>
+    <string name="search_label">Search:</string>
+
+    <!-- Products -->
+    <string name="products">Products</string>
+    <string name="new_product">New Product</string>
+    <string name="set_product_image">Set Product Image</string>
+    <string name="no_barcode_found">No valid barcode was found</string>
+    <string name="no_product_found">No product found for barcode</string>
+    <string name="confirm_product_removal">Are you sure you want to remove %d product(s)?</string>
+    <string name="select_product_to_remove">Please select at least 1 product to remove or press back</string>
+    <string name="no_products_to_remove">There are no products to remove</string>
+    <string name="no_products_found">No Products Found</string>
+    <string name="no_products_found_msg">Tap the (+) button above to add a new product</string>
+
+    <!-- Collections -->
+    <string name="collections">Collections</string>
+
+    <!-- Placeholder text -->
+    <string name="placeholder_title">Title</string>
+    <string name="placeholder_desc">Description</string>
+    <string name="placeholder_name">Product Name</string>
+    <string name="placeholder_description">This is a generic placeholder description for testing and visualization purposes.</string>
+    <string name="placeholder_brand">Brand Name</string>
+    <string name="placeholder_barcode">370030114184</string>
+
+    <!-- Product categories -->
+    <string name="category_food">Food &amp; Beverages</string>
+    <string name="category_health">Health &amp; Beauty</string>
+    <string name="category_pet">Pet Supplies</string>
+    <string name="category_clothing">Clothing &amp; Accessories</string>
+    <string name="category_sport">Sporting Goods</string>
+    <string name="category_books">Books &amp; Magazines</string>
+    <string name="category_collectables">Collectables</string>
+    <string name="category_toys">Toys &amp; Hobbies</string>
+    <string name="category_home">Home &amp; Garden</string>
+    <string name="category_furniture">Furniture</string>
+    <string name="category_tools">Tools &amp; Hardware</string>
+    <string name="category_music">Musical Instruments &amp; Gear</string>
+    <string name="category_arts">Arts &amp; Crafts</string>
+    <string name="category_electronics">Electronics</string>
+    <string name="category_media">Media</string>
+    <string name="category_business">Business &amp; Industrial</string>
+    <string name="category_digital">Digital</string>
+    <string name="category_other">Other</string>
+
+</resources>

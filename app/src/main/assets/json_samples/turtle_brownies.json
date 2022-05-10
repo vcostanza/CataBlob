@@ -1,0 +1,56 @@
+{
+  "code": "OK",
+  "total": 1,
+  "offset": 0,
+  "items": [
+    {
+      "ean": "0024300045028",
+      "title": "TURTLE BROWNIES",
+      "description": "INGREDIENTS: SUGAR, CORN SYRUP, WATER, SOYBEAN OIL, ENRICHED BLEACHED FLOUR (WHEAT FLOUR, NIACIN, REDUCED IRON, THIAMIN MONONITRATE [VITAMIN B1], RIBOFLAVIN [VITAMIN B2], FOLIC ACID), HYDROGENATED PALM KERNEL OIL, EGGS, NONFAT DRY MILK, PEANUTS, PALM KERNEL AND SOYBEAN OILS, PALM AND SOYBEAN OILS WITH TBHQ AND CITRIC ACID TO PROTECT FLAVOR. CONTAINS 2% OR LESS OF EACH OF THE FOLLOWING: COCOA PROCESSED WITH ALKALI, COCOA, SALT, WHOLE MILK POWDER, NATURAL AND ARTIFICIAL FLAVORS, MODIFIED CORN STARCH, SOY FLOUR, SORBITAN MONOSTEARATE, SOY LECITHIN, POLYSORBATE 60, CARRAGEENAN, SORBIC ACID (TO PRESERVE FRESHNESS), PROPYLENE GLYCOL MONOSTEARATE, MONO- AND DIGLYCERIDES, SODIUM STEAROYL LACTYLATE, XANTHAN GUM, CORN STARCH.",
+      "upc": "024300045028",
+      "brand": "Little Debbie",
+      "model": "2430004502",
+      "color": "Black",
+      "size": "",
+      "dimension": "",
+      "weight": "0.50 lb",
+      "category": "Food, Beverages & Tobacco > Food Items > Snack Foods > Snack Cakes",
+      "currency": "",
+      "lowest_recorded_price": 2.5,
+      "highest_recorded_price": 10.99,
+      "images": [
+        "https://target.scene7.com/is/image/Target/GUEST_ed2c6c3f-8cbb-4bf2-bccd-2332c0c3b61a?wid=1000&hei=1000",
+        "https://products.blains.com/600/133/1330262.jpg"
+      ],
+      "offers": [
+        {
+          "merchant": "Target",
+          "domain": "target.com",
+          "title": "Little Debbie Cosmic Cupcakes 6ct",
+          "currency": "",
+          "list_price": "",
+          "price": 3.09,
+          "shipping": "",
+          "condition": "New",
+          "availability": "",
+          "link": "https://www.upcitemdb.com/norob/alink/?id=x2o2431323z2d464u2&tid=1&seq=1651025537&plt=e2b386ec1f02cfcd969ee90a49f178c7",
+          "updated_t": 1556854324
+        },
+        {
+          "merchant": "Blain Farm & Fleet",
+          "domain": "farmandfleet.com",
+          "title": "Little Debbie Turtle Brownies",
+          "currency": "",
+          "list_price": "",
+          "price": 2.59,
+          "shipping": "",
+          "condition": "New",
+          "availability": "",
+          "link": "https://www.upcitemdb.com/norob/alink/?id=z2s203z21363d494w2&tid=1&seq=1651025537&plt=3029714f530c10df9853798b8980cad2",
+          "updated_t": 1649844722
+        }
+      ],
+      "elid": "403587949287"
+    }
+  ]
+}

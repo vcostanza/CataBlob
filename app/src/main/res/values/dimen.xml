@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="tablet">false</bool>
+
+    <!-- Text sizes -->
+    <dimen name="text_title">18sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+
+    <!-- Button sizes -->
+    <dimen name="button_large">120dp</dimen>
+    <dimen name="button_medium">64dp</dimen>
+    <dimen name="button_small">40dp</dimen>
+
+    <!-- Thumbnail sizes -->
+    <dimen name="thumb_small">48dp</dimen>
+    <dimen name="thumb_medium">64dp</dimen>
+    <dimen name="thumb_large">100dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">6dp</dimen>
+    <dimen name="margin_large">8dp</dimen>
+
+</resources>

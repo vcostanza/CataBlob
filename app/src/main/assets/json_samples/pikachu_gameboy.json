@@ -1,0 +1,25 @@
+{
+  "code": "OK",
+  "total": 1,
+  "offset": 0,
+  "items": [
+    {
+      "ean": "0045496711078",
+      "title": "Nintendo Game Boy Color Orange Console Japan Pokemon Center Limited Model",
+      "description": "",
+      "upc": "045496711078",
+      "elid": "202242022846",
+      "brand": "Nintendo",
+      "model": "",
+      "color": "",
+      "size": "",
+      "dimension": "",
+      "weight": "",
+      "category": "Electronics > Video Game Consoles",
+      "lowest_recorded_price": 14.95,
+      "highest_recorded_price": 5000,
+      "images": [],
+      "offers": []
+    }
+  ]
+}

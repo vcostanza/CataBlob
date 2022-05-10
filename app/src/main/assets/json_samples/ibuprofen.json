@@ -1,0 +1,42 @@
+{
+  "code": "OK",
+  "total": 1,
+  "offset": 0,
+  "items": [
+    {
+      "ean": "0370030114184",
+      "title": "basic care ibuprofen tablets, 500 count",
+      "description": "ACTIVE INGREDIENT: Amazon Basic Care Ibuprofen Tablets 200 mg contain ibuprofen 200 mg, a pain reliever/fever reducer (NSAID). Compare to the active ingredient in AdvilPAIN RELIEVER/FEVER REDUCER (NSAID) provides proven pain relief without a prescription for tough pain such as muscular aches, minor arthritis pain, toothache, backache, menstrual cramps or minor aches and pains from the common coldSTRONG RELIEF: Amazon Basic Care Ibuprofen Tablets 200 mg are strong on tough pain to help you get the relief you need to keep going. No prescription needed for this pain reliever and fever reducer.EFFECTIVE: When pain tries to take over, turn to the proven pain relief of coated Amazon Basic Care Ibuprofen Tablets 200 mg. Ibuprofen works to keep you working. Use for adults and children 12 years and over.Ibuprofen is the number 1 doctor recommended back pain OTC active ingredient (of U.S. physicians surveyed by an independent market research firm)",
+      "upc": "370030114184",
+      "brand": "Basic Care",
+      "model": "B074F297T8",
+      "color": "Red",
+      "size": "",
+      "dimension": "",
+      "weight": "",
+      "category": "Health & Beauty > Health Care > First Aid > Hot & Cold Therapies",
+      "currency": "",
+      "lowest_recorded_price": 4,
+      "highest_recorded_price": 47.43,
+      "images": [
+        "https://i5.walmartimages.com/asr/d6e20d90-21ba-4222-87b3-5c47076cee27_1.aa28e00dd5cd1e38e50253c856940d1f.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff"
+      ],
+      "offers": [
+        {
+          "merchant": "Wal-Mart.com",
+          "domain": "walmart.com",
+          "title": "basic care ibuprofen tablets, 500 count",
+          "currency": "",
+          "list_price": "",
+          "price": 12.88,
+          "shipping": "Free Shipping",
+          "condition": "New",
+          "availability": "",
+          "link": "https://www.upcitemdb.com/norob/alink/?id=z2q25313z2039474w2&tid=1&seq=1651025360&plt=5857e75b808f55a4716a24db42022831",
+          "updated_t": 1639094800
+        }
+      ],
+      "elid": "134050618827"
+    }
+  ]
+}

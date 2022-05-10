@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Category list -->
+    <array name="product_categories">
+        <item>@string/category_food</item>
+        <item>@string/category_health</item>
+        <item>@string/category_pet</item>
+        <item>@string/category_clothing</item>
+        <item>@string/category_books</item>
+        <item>@string/category_collectables</item>
+        <item>@string/category_toys</item>
+        <item>@string/category_electronics</item>
+        <item>@string/category_media</item>
+        <item>@string/category_business</item>
+        <item>@string/category_digital</item>
+        <item>@string/category_other</item>
+    </array>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_medium"
+        android:gravity="center_vertical"
+        android:background="@color/search_bar_background">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@string/search_label"
+            android:textSize="@dimen/text_large"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_terms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="@string/placeholder_description"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cancel"
+            android:layout_width="@dimen/button_small"
+            android:layout_height="@dimen/button_small"
+            android:padding="@dimen/margin_medium"
+            android:src="@drawable/ic_cancel"
+            android:tint="@color/text_title"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
+

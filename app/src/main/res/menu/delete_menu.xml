@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/cancel"
+        android:title="@string/cancel"
+        android:icon="@drawable/ic_back"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/confirm_removal"
+        android:title="@string/confirm_removal"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"/>
+
+</menu>

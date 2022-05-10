@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 33.866666 33.866668"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="ic_camera.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#4b4b4b"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70000001"
+     inkscape:cx="-411.18244"
+     inkscape:cy="14.26769"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="2560"
+     inkscape:window-height="1382"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-263.13332)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot981"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93541473"
+       transform="matrix(1.0714281,0,0,1.0666662,-1.209516,-19.391046)"><flowRegion
+         id="flowRegion983"
+         style="stroke-width:0.93541473"><rect
+           id="rect985"
+           width="139.64285"
+           height="128.75"
+           x="8.75"
+           y="4.9642854"
+           style="stroke-width:0.93541473" /></flowRegion><flowPara
+         id="flowPara987"
+         style="stroke-width:0.93541473" /></flowRoot>    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.11666679;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 12.615768,267.94458 c -0.873618,0 -1.222001,0.73794 -1.576649,1.48311 l -1.913578,4.02043 H 5.2916665 c -2.3452667,0 -4.2333334,1.88807 -4.2333334,4.23333 v 10.27394 c 0,2.34526 1.8880667,4.23334 4.2333334,4.23334 H 28.575 c 2.345267,0 4.233334,-1.88808 4.233334,-4.23334 v -10.27394 c 0,-2.34526 -1.888067,-4.23333 -4.233334,-4.23333 h -3.795634 l -1.913578,-4.02043 c -0.354644,-0.74517 -0.703032,-1.48311 -1.576648,-1.48311 z"
+       id="rect858"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccssssssssccss" />
+    <circle
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.11666679;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path879"
+       cx="16.933334"
+       cy="282.26801"
+       r="5.6541753" />
+  </g>
+</svg>
