@@ -1,4 +1,4 @@
-# CataBlob
+![CataBlob](app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 An Android app for tracking and managing collections of products.
 
 This app is currently a work in progress. The TODO list is as follows:
