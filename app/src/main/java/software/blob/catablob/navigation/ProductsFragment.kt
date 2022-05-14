@@ -286,7 +286,7 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
             for (product in products) {
                 if (product.name.contains(terms, true) ||
                     product.brand.contains(terms, true) ||
-                    product.category.getDescription(act).contains(terms, true))
+                    product.category.getLocalizedName(act).contains(terms, true))
                         results += product
             }
 

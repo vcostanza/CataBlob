@@ -158,7 +158,6 @@ class ProductRowViewHolder(
      */
     fun bind(product: ProductMetadata) {
         binding.product = product
-        binding.description.text = product.category.getDescription(itemView.context)
         binding.thumbnail.setImageResource(R.drawable.ic_placeholder)
         updateCheckbox()
     }

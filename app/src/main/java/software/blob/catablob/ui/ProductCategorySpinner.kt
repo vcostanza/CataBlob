@@ -75,5 +75,5 @@ private class ProductCategoryItem(
     private val context: Context,
     val category: ProductCategory) {
 
-    override fun toString() = category.getDescription(context)
+    override fun toString() = category.getLocalizedName(context)
 }

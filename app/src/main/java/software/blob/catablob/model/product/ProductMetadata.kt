@@ -1,5 +1,6 @@
 package software.blob.catablob.model.product
 
+import android.content.Context
 import com.google.zxing.BarcodeFormat
 import java.util.*
 
@@ -22,4 +23,12 @@ data class ProductMetadata(
     var category: ProductCategory = ProductCategory.OTHER,
     var imageURI: String = "",
     var code: ProductCode = ProductCode("", BarcodeFormat.UPC_A),
-    var dbid: Long = -1)
+    var dbid: Long = -1) {
+
+    /**
+     * Get the localized name of the category
+     * @param context Application context used for localized string lookup
+     * @return Category name
+     */
+    fun getCategoryName(context: Context) = category.getLocalizedName(context)
+}

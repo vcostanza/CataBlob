@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
+                android:text="@{product.getCategoryName(context)}"
                 tools:text="@string/placeholder_desc"
                 android:textSize="@dimen/text_small"
                 android:maxLines="1"

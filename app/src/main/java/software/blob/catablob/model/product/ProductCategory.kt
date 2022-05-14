@@ -73,7 +73,7 @@ enum class ProductCategory {
      * @param context Application context used for string resource lookup
      * @return Localized category name
      */
-    fun getDescription(context: Context): String {
+    fun getLocalizedName(context: Context): String {
         return context.getString(when (this) {
             FOOD -> R.string.category_food
             HEALTH -> R.string.category_health
