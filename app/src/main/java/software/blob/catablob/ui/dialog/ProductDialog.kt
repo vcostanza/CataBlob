@@ -60,9 +60,6 @@ class ProductDialog(
         // Setup the text views for product name, brand, etc.
         binding.product = product
 
-        // Set proper category
-        binding.category.category = product.category
-
         // Initialize the image placeholder (thumbnail loaded asynchronously)
         binding.image.setImageResource(R.drawable.ic_placeholder)
 
@@ -93,7 +90,6 @@ class ProductDialog(
             .setView(binding.root)
             .setPositiveButton(R.string.save) { _, _ ->
                 // Update the product in the database
-                product.category = binding.category.category
                 ProductManager.addProduct(product)
             }
             .setNegativeButton(R.string.cancel, null)

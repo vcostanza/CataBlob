@@ -95,4 +95,18 @@ enum class ProductCategory {
             else -> R.string.category_other
         })
     }
+
+    companion object {
+
+        /**
+         * Get all localized category names
+         * @param context Application context used for string resource lookup
+         * @return Localized category names array
+         */
+        @JvmStatic
+        fun getLocalizedNames(context: Context): Array<String> {
+            val categories = values()
+            return Array(categories.size) { i -> categories[i].getLocalizedName(context) }
+        }
+    }
 }

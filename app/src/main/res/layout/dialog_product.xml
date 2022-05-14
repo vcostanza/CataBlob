@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="software.blob.catablob.model.product.ProductCategory"/>
         <variable name="product" type="software.blob.catablob.model.product.ProductMetadata"/>
     </data>
 
@@ -19,7 +21,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -31,95 +32,108 @@
                     android:layout_height="match_parent"
                     tools:src="@drawable/ic_placeholder"/>
 
-                <TableLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_large">
 
-                    <!-- The name of the product -->
-                    <TableRow android:gravity="center_vertical">
+                    <!-- The product category
+                         XXX - The spinner is placed here to workaround a databinding bug
+                         where the selection is set BEFORE entries is set, which causes
+                         selection to always default to zero.
+                    -->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        app:layout_constraintTop_toBottomOf="@id/table"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/name_label"/>
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="@dimen/margin_small"
-                            android:text="@={product.name}"
-                            tools:text="@string/placeholder_name"
-                            android:maxLines="2"/>
-                    </TableRow>
-
-                    <!-- The product brand -->
-                    <TableRow android:gravity="center_vertical">
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/brand_label"/>
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/brand"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="@dimen/margin_small"
-                            android:text="@={product.brand}"
-                            tools:text="@string/placeholder_brand"
-                            android:maxLines="1"/>
-                    </TableRow>
-
-                    <!-- The category -->
-                    <TableRow android:gravity="center_vertical">
-                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/category_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/category_label"/>
-                        <software.blob.catablob.ui.ProductCategorySpinner
-                            android:id="@+id/category"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:spinnerMode="dropdown"
-                            android:popupBackground="@color/gray"
-                            android:fadeScrollbars="false"/>
-                    </TableRow>
-
-                    <!-- Barcode -->
-                    <TableRow>
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/category_spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/upc_label"/>
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/barcode"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="@dimen/margin_small"
-                            android:text="@={product.code.code}"
-                            tools:text="@string/placeholder_barcode"/>
-                    </TableRow>
+                            android:entries="@{ProductCategory.getLocalizedNames(context)}"
+                            android:selection="@={product.categoryIndex}"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                </TableLayout>
+                    <TableLayout
+                        android:id="@+id/table"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- The name of the product -->
+                        <TableRow android:gravity="center_vertical">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_label"/>
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/margin_small"
+                                android:maxLines="2"
+                                android:text="@={product.name}"
+                                tools:text="@string/placeholder_name"/>
+                        </TableRow>
+
+                        <!-- The product brand -->
+                        <TableRow android:gravity="center_vertical">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/brand_label"/>
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/margin_small"
+                                android:maxLines="1"
+                                android:text="@={product.brand}"
+                                tools:text="@string/placeholder_brand"/>
+                        </TableRow>
+
+                        <!-- Barcode -->
+                        <TableRow>
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/upc_label"/>
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/margin_small"
+                                android:text="@={product.code.code}"
+                                tools:text="@string/placeholder_barcode"/>
+                        </TableRow>
+
+                    </TableLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <!-- Notes -->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/desc_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/notes_label"/>
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
                 android:text="@={product.description}"
-                tools:text="@string/placeholder_description"
-                android:textSize="@dimen/text_small"/>
+                tools:text="@string/placeholder_description"/>
 
         </LinearLayout>
 
