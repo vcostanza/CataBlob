@@ -34,11 +34,14 @@
     <string name="set_product_image">Set Product Image</string>
     <string name="no_barcode_found">No valid barcode was found</string>
     <string name="no_product_found">No product found for barcode</string>
-    <string name="confirm_product_removal">Are you sure you want to remove %d product(s)?</string>
     <string name="select_product_to_remove">Please select at least 1 product to remove or press back</string>
     <string name="no_products_to_remove">There are no products to remove</string>
     <string name="no_products_found">No Products Found</string>
     <string name="no_products_found_msg">Tap the (+) button above to add a new product</string>
+    <plurals name="confirm_product_removal">
+        <item quantity="one">Are you sure you want to remove this product?</item>
+        <item quantity="other">Are you sure you want to remove %d products?</item>
+    </plurals>
 
     <!-- Collections -->
     <string name="collections">Collections</string>

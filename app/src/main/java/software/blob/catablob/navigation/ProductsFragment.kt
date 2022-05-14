@@ -351,7 +351,8 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
         // Show dialog confirmation
         AlertDialog.Builder(ctx)
             .setTitle(R.string.confirm_removal)
-            .setMessage(ctx.getString(R.string.confirm_product_removal, toRemove.size))
+            .setMessage(ctx.getQuantityString(R.plurals.confirm_product_removal,
+                toRemove.size, toRemove.size))
             .setPositiveButton(R.string.yes) { _, _ ->
                 ProductManager.removeProducts(toRemove)
                 popMode()

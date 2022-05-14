@@ -2,12 +2,14 @@ package software.blob.catablob.util
 
 import android.content.Context
 import android.content.res.Configuration.ORIENTATION_PORTRAIT
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.PluralsRes
 import software.blob.catablob.R
 import java.io.File
 import java.lang.Exception
@@ -29,6 +31,18 @@ val Context.isPortrait get() = resources.configuration.orientation == ORIENTATIO
  * @return Temporary files directory
  */
 val Context.tempDirectory get() = getOrCreateDirectory("tmp")
+
+/**
+ * Returns the string necessary for grammatically correct pluralization of the given resource
+ * ID for the given quantity.
+ * Shortcut for [Resources.getQuantityString]
+ * @param id Plural string resource ID
+ * @param quantity Quantity to use for pluralization
+ * @param formatArgs String formatting arguments
+ * @return Pluralized string
+ */
+fun Context.getQuantityString(@PluralsRes id: Int, quantity: Int, vararg formatArgs: Any) =
+    resources.getQuantityString(id, quantity, *formatArgs)
 
 /**
  * Get a sub-directory in this app's directory
