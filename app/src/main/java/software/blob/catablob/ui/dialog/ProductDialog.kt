@@ -8,24 +8,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import software.blob.catablob.R
-import software.blob.catablob.database.ProductManager
+import software.blob.catablob.data.Product
 import software.blob.catablob.databinding.DialogProductBinding
-import software.blob.catablob.model.product.ProductMetadata
 import software.blob.catablob.navigation.BaseFragment
 import software.blob.catablob.ui.ZoomImageView
 import software.blob.catablob.ui.image.ImageUriReader
 import software.blob.catablob.ui.image.ThumbnailGenerator
+import software.blob.catablob.ui.viewmodel.ProductsViewModel
 import software.blob.catablob.util.*
 import java.io.File
 
 /**
- * A dialog for viewing [ProductMetadata]
+ * A dialog for viewing [Product]
  * @param fragment Fragment that is showing this dialog
  * @param product The product to view/edit
  */
 class ProductDialog(
     private val fragment: BaseFragment,
-    product: ProductMetadata)
+    private val viewModel: ProductsViewModel,
+    product: Product)
     : DialogInterface {
 
     private val context = fragment.requireContext()
@@ -70,11 +71,11 @@ class ProductDialog(
             { thumb -> binding.image.setImageBitmap(thumb.bitmap) },
             { e -> Log.e(TAG, "Failed to generate thumbnail", e) }
         )
-        thumbGen.request(product.imageURI)
+        thumbGen.request(product.imageUri)
         this.thumbGen = thumbGen
 
         // Prompt the user to change the product image when they tap on it
-        binding.image.tag = product.imageURI
+        binding.image.tag = product.imageUri
         binding.image.setOnClickListener {
             // If there's no image set then prompt the user to add one
             // Otherwise bring up the fullscreen image viewer
@@ -89,8 +90,8 @@ class ProductDialog(
         val dialog = AlertDialog.Builder(context)
             .setView(binding.root)
             .setPositiveButton(R.string.save) { _, _ ->
-                // Update the product in the database
-                ProductManager.addProduct(product)
+                // Add/update the product via view model
+                viewModel.addProduct(product)
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
@@ -217,7 +218,7 @@ class ProductDialog(
     var viewState get() = ViewState(this)
         set(value) {
             // Restore the image dialog
-            if (value.fsImage) showFullscreenImage(product.imageURI)
+            if (value.fsImage) showFullscreenImage(product.imageUri)
         }
 
     /**

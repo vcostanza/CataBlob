@@ -7,33 +7,41 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
-import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import software.blob.catablob.R
-import software.blob.catablob.database.ProductManager
+import software.blob.catablob.data.AppDatabase
+import software.blob.catablob.data.Product
 import software.blob.catablob.databinding.FragmentProductsBinding
 import software.blob.catablob.model.product.ProductCode
-import software.blob.catablob.model.product.ProductMetadata
 import software.blob.catablob.net.PRODUCT_NOT_FOUND
 import software.blob.catablob.net.UpcItemDbClient
 import software.blob.catablob.ui.ProductRowAdapter
 import software.blob.catablob.ui.dialog.ProductDialog
 import software.blob.catablob.ui.dialog.TileButtonDialog
+import software.blob.catablob.ui.viewmodel.ProductsViewModel
 import software.blob.catablob.util.*
-import java.util.concurrent.Executors
 
 /**
  * The screen for viewing and managing registered products
  */
-class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
-    Observer<List<ProductMetadata>> {
+class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu) {
 
-    private lateinit var viewModel: ProductsViewModel
+    private val viewModel: ProductsViewModel by viewModels({this}, {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return modelClass.getConstructor(AppDatabase::class.java)
+                    .newInstance(database)
+            }
+        }
+    })
+
+    private lateinit var database: AppDatabase
     private lateinit var binding: FragmentProductsBinding
     private lateinit var adapter: ProductRowAdapter
     private lateinit var upcLookup: UpcItemDbClient
@@ -46,7 +54,6 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
     private var searchEnabled = false
 
     // Search function
-    private val searchExecutor = Executors.newSingleThreadExecutor()
     private val searchTerms get() = binding.searchBar.searchTerms.text.toString()
 
     /**
@@ -55,8 +62,7 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Create/load view model
-        viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
+        database = AppDatabase.getInstance(requireContext())
 
         // REST service for UPC lookup
         upcLookup = UpcItemDbClient()
@@ -107,14 +113,19 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
         adapter = ProductRowAdapter(ctx, productList) { product -> openProductDialog(product) }
         productList.layoutManager = LinearLayoutManager(ctx)
         productList.adapter = adapter
-        ProductManager.subscribeOnAdd(this)
-        ProductManager.subscribeOnRemove(this)
 
         // Setup search bar
         binding.searchBar.let {
-            it.searchTerms.addTextChangedListener { refresh() }
+            it.searchTerms.addTextChangedListener { text ->
+                viewModel.searchProducts(text.toString()) { terms, products ->
+                    refresh(products, terms)
+                }
+            }
             it.cancel.setOnClickListener { toggleSearch(false) }
         }
+
+        // Observe products list and send updates to the adapter
+        viewModel.products.observe(viewLifecycleOwner) { products -> refresh(products) }
 
         return binding.root
     }
@@ -188,12 +199,12 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
 
             // Remove a product from the list
             R.id.remove_products -> {
-                if (ProductManager.productsEmpty)
+                if (binding.hasProducts)
+                    pushMode(deleteMode)
+                else
                     Snackbar.make(requireView(),
                         R.string.no_products_to_remove,
                         Snackbar.LENGTH_SHORT).show()
-                else
-                    pushMode(deleteMode)
             }
 
             // Open the product search bar
@@ -223,91 +234,34 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
     }
 
     /**
-     * Track the list of subscriptions we must dispose on shutdown
-     */
-    override fun onSubscribe(d: Disposable) {
-        disposables += d
-    }
-
-    /**
-     * The list of products has been modified - refresh the view
-     * @param products Products added or removed
-     */
-    override fun onNext(products: List<ProductMetadata>) {
-        activity?.runOnUiThread { refresh() }
-    }
-
-    /**
-     * A fatal error has occurred while adding/removing products
-     * @param e Error
-     */
-    override fun onError(e: Throwable) {
-        Log.e(TAG, "Failed to process products change", e)
-    }
-
-    /**
-     * Product manager is shutdown
-     */
-    override fun onComplete() {
-    }
-
-    /**
      * Refresh the current displayed list of products
+     * @param products Products to show in the list
+     * @param searchTerms Search terms used to get this list (null if N/A)
      */
-    private fun refresh() {
+    private fun refresh(products: List<Product>, searchTerms: String? = null) {
 
-        // If search is disabled or the search terms are empty just display
-        // the entire products list
-        val terms = searchTerms
-        if (!searchEnabled || terms.isEmpty()) {
-            val products = ProductManager.products
+        // Ignore refresh if the search state is inconsistent with the results' state
+        if (searchEnabled && searchTerms == null ||
+            !searchEnabled && !searchTerms.isNullOrEmpty())
+                return
 
-            // Show the full list of products
-            adapter.submitList(products)
+        // Controls visibility of the "No products available" message
+        binding.hasProducts = products.isNotEmpty()
 
-            // Show the "No Products Found" message when there are none
-            binding.noProductsFound.visibility = if (products.isEmpty()) View.VISIBLE else View.GONE
-
-            return
-        }
-
-        // Push search request
-        val act = requireActivity()
-        searchExecutor.submit {
-
-            // The terms have since changed this request - skip
-            if (searchTerms != terms) return@submit
-
-            Log.d(TAG, "Performing search: $terms")
-            val products = ProductManager.products
-
-            // Filter products by name, brand, etc.
-            val results = ArrayList<ProductMetadata>(products.size)
-            for (product in products) {
-                if (product.name.contains(terms, true) ||
-                    product.brand.contains(terms, true) ||
-                    product.category.getLocalizedName(act).contains(terms, true))
-                        results += product
-            }
-
-            // Push search results to the list
-            act.runOnUiThread {
-                // Only update results if the search terms haven't changed since
-                if (searchTerms == terms) adapter.submitList(results)
-            }
-        }
+        // Push the list of products to the adapter
+        adapter.submitList(products)
     }
 
     /**
      * Open the product details dialog
      * @param product Product to view
      */
-    private fun openProductDialog(product: ProductMetadata) {
+    private fun openProductDialog(product: Product) {
         // Dismiss existing product dialog if one is already opened
         productDialog?.dismiss()
 
         // Open product dialog
-        val dialog = ProductDialog(this, product).show()
+        val dialog = ProductDialog(this, viewModel, product).show()
         productDialog = dialog
         dialog.setOnDismissListener {
             // Clear the active product when the dialog is dismissed
@@ -325,7 +279,7 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
             .addButton(R.drawable.ic_barcode, R.string.scan_barcode)
             .setOnClickListener { _, which ->
                 when (which) {
-                    0 -> openProductDialog(ProductMetadata(name = "New Product"))
+                    0 -> openProductDialog(Product(name = "New Product"))
                     1 -> navTo(R.id.action_productsFragment_to_barcodeFragment)
                 }
             }
@@ -354,7 +308,7 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
             .setMessage(ctx.getQuantityString(R.plurals.confirm_product_removal,
                 toRemove.size, toRemove.size))
             .setPositiveButton(R.string.yes) { _, _ ->
-                ProductManager.removeProducts(toRemove)
+                viewModel.removeProducts(toRemove)
                 popMode()
             }
             .setNegativeButton(R.string.cancel, null)
@@ -385,20 +339,7 @@ class ProductsFragment : BaseFragment(R.string.products, R.menu.products_menu),
      */
     private fun toggleSearch() = toggleSearch(!searchEnabled)
 
-    /**
-     * View model used for saving and restoring state
-     */
-    class ProductsViewModel : ViewModel() {
 
-        // The product dialog view state
-        var productDialog: ProductDialog.ViewState? = null
-
-        // Search terms
-        var searchTerms: String? = null
-
-        // Delete mode
-        var deleteProducts: List<ProductMetadata>? = null
-    }
 
     companion object {
         private const val TAG = "ProductsFragment"

@@ -2,10 +2,7 @@ package software.blob.catablob.util.rxjava
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.functions.Action
-import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.subjects.PublishSubject
-import software.blob.catablob.model.product.ProductMetadata
 
 /**
  * An [Observable] that has a default [PublishSubject]

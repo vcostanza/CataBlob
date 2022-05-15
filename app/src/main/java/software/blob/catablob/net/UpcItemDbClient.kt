@@ -5,13 +5,16 @@ import com.google.zxing.BarcodeFormat
 import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
-import software.blob.catablob.model.product.*
+import software.blob.catablob.data.Product
+import software.blob.catablob.model.product.ProductCategory
+import software.blob.catablob.model.product.ProductCode
+import software.blob.catablob.model.product.ProductNotFoundException
 import software.blob.catablob.util.readJsonObject
 
 /**
  * A [HttpClient] for handling REST responses from upcitemdb.com
  */
-open class UpcItemDbClient : HttpClient<ProductMetadata>() {
+open class UpcItemDbClient : HttpClient<Product>() {
 
     /**
      * Perform a lookup on a given UPC code
@@ -30,7 +33,7 @@ open class UpcItemDbClient : HttpClient<ProductMetadata>() {
      * @param res UPC response containing JSON metadata
      * @return Product metadata or null if failed
      */
-    override fun onResponse(res: Response): ProductMetadata? {
+    override fun onResponse(res: Response): Product? {
         try {
             res.body?.byteStream().use { stream ->
                 if (stream == null) return null
@@ -51,7 +54,7 @@ open class UpcItemDbClient : HttpClient<ProductMetadata>() {
      * @param code Input product code (null to read from JSON)
      * @return Product metadata
      */
-    fun parseJsonResponse(json: JSONObject, code: ProductCode? = null): ProductMetadata {
+    fun parseJsonResponse(json: JSONObject, code: ProductCode? = null): Product {
         val items = json.getJSONArray("items")
 
         // Product not found
@@ -60,17 +63,19 @@ open class UpcItemDbClient : HttpClient<ProductMetadata>() {
 
         val item = items.getJSONObject(0)
         val imageLinks = item.getJSONArray("images")
-        val imageURI = if (imageLinks.length() > 0) imageLinks.getString(0) else ""
-        val productCode = code ?: ProductCode(item.getString("upc"), BarcodeFormat.UPC_A)
+        val imageUri = if (imageLinks.length() > 0) imageLinks.getString(0) else ""
+        val codeText = code?.code ?: item.getString("upc")
+        val codeType = code?.format ?: BarcodeFormat.UPC_A
         val category = parseCategory(item.getString("category"))
 
-        return ProductMetadata(
+        return Product(
             name = item.getString("title"),
-            description = item.getString("description"),
+            notes = item.getString("description"),
             brand = item.getString("brand"),
             category = category,
-            imageURI = imageURI,
-            code = productCode)
+            imageUri = imageUri,
+            code = codeText,
+            codeType = codeType)
     }
 
     /**
@@ -119,4 +124,4 @@ open class UpcItemDbClient : HttpClient<ProductMetadata>() {
 /**
  * Constant used to identify if a product is not found/valid
  */
-val PRODUCT_NOT_FOUND = ProductMetadata("", "No Product")
+val PRODUCT_NOT_FOUND = Product(uid = "", name = "No Product")

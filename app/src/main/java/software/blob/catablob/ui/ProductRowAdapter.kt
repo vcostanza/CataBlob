@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import software.blob.catablob.R
+import software.blob.catablob.data.Product
 import software.blob.catablob.databinding.ProductRowBinding
-import software.blob.catablob.model.product.ProductMetadata
 import software.blob.catablob.ui.image.UriBitmap
 import software.blob.catablob.ui.image.ThumbnailGenerator
 
 /**
- * Adapter for displaying a list of products using the [ProductMetadata] model
+ * Adapter for displaying a list of products using the [Product] model
  * @param context Application context
  * @param parent Parent list
  * @param onClick Click listener
@@ -23,12 +23,12 @@ import software.blob.catablob.ui.image.ThumbnailGenerator
 class ProductRowAdapter(
     context: Context,
     private val parent: ViewGroup,
-    private val onClick: (ProductMetadata) -> Unit)
-    : ListAdapter<ProductMetadata, ProductRowViewHolder>(ProductRowDiffCallback) {
+    private val onClick: (Product) -> Unit)
+    : ListAdapter<Product, ProductRowViewHolder>(ProductRowDiffCallback) {
 
     private val thumbGenerator = ThumbnailGenerator(context)
     private val views = ArrayList<ProductRowViewHolder>()
-    private val selectMap = HashMap<String, ProductMetadata>()
+    private val selectMap = HashMap<String, Product>()
 
     // Multi-select mode
     var multiSelect = false
@@ -71,7 +71,7 @@ class ProductRowAdapter(
     /**
      * Add a product to the selected list in multi-select mode
      */
-    fun toggleSelect(product: ProductMetadata) {
+    fun toggleSelect(product: Product) {
         if (product.uid in selectMap)
             selectMap.remove(product.uid)
         else
@@ -82,7 +82,7 @@ class ProductRowAdapter(
      * Check if a given product is selected in multi-select mode
      * @param product Product to check
      */
-    fun isSelected(product: ProductMetadata) = multiSelect && selectMap.containsKey(product.uid)
+    fun isSelected(product: Product) = multiSelect && selectMap.containsKey(product.uid)
 
     /**
      * Inflate a new product view holder
@@ -101,7 +101,7 @@ class ProductRowAdapter(
         val product = getItem(position)
 
         // Get cached thumbnail or generate one
-        thumbGenerator.request(product.imageURI)
+        thumbGenerator.request(product.imageUri)
 
         holder.bind(product)
     }
@@ -126,7 +126,7 @@ class ProductRowAdapter(
 }
 
 /**
- * View holder for [ProductMetadata]
+ * View holder for a [Product]
  * @param binding Data binding interface
  * @param adapter Product adapter
  * @param onClick Click event listener
@@ -134,10 +134,10 @@ class ProductRowAdapter(
 class ProductRowViewHolder(
     private val binding: ProductRowBinding,
     private val adapter: ProductRowAdapter,
-    private val onClick: (ProductMetadata) -> Unit)
+    private val onClick: (Product) -> Unit)
     : RecyclerView.ViewHolder(binding.root) {
 
-    private val imageURI get() = binding.product?.imageURI
+    private val imageURI get() = binding.product?.imageUri
 
     /**
      * Setup the click listener for each product row
@@ -153,10 +153,10 @@ class ProductRowViewHolder(
     }
 
     /**
-     * Update views based on latest [ProductMetadata]
+     * Update views based on latest [Product]
      * @param product Product metadata
      */
-    fun bind(product: ProductMetadata) {
+    fun bind(product: Product) {
         binding.product = product
         binding.thumbnail.setImageResource(R.drawable.ic_placeholder)
         updateCheckbox()
@@ -187,16 +187,16 @@ class ProductRowViewHolder(
 /**
  * Callback used to check if 2 products are the same
  */
-object ProductRowDiffCallback : DiffUtil.ItemCallback<ProductMetadata>() {
-    override fun areItemsTheSame(old: ProductMetadata, new: ProductMetadata): Boolean {
+object ProductRowDiffCallback : DiffUtil.ItemCallback<Product>() {
+    override fun areItemsTheSame(old: Product, new: Product): Boolean {
         return old.uid == new.uid
     }
 
-    override fun areContentsTheSame(old: ProductMetadata, new: ProductMetadata): Boolean {
+    override fun areContentsTheSame(old: Product, new: Product): Boolean {
         return old.name == new.name &&
                 old.category == new.category &&
                 old.brand == new.brand &&
-                old.description == new.description &&
+                old.notes == new.notes &&
                 old.code == new.code
     }
 }

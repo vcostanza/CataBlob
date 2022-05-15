@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="product" type="software.blob.catablob.model.product.ProductMetadata"/>
+        <variable name="product" type="software.blob.catablob.data.Product"/>
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
