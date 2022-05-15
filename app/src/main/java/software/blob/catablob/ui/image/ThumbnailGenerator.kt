@@ -1,5 +1,6 @@
 package software.blob.catablob.ui.image
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import okhttp3.HttpUrl
@@ -122,7 +123,9 @@ class ThumbnailGenerator(
         }
 
         // Send thumbnail to observers
-        onNext(UriBitmap(imageUri, bitmap))
+        (context as? Activity)?.runOnUiThread {
+            onNext(UriBitmap(imageUri, bitmap))
+        }
     }
 
     /**
